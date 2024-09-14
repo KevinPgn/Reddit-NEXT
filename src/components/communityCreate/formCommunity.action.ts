@@ -103,7 +103,12 @@ export const createCommunity = authenticatedAction
         const community = await prisma.community.create({
             data: {
                 name: communityName,
-                creatorId: userId
+                creatorId: userId,
+                members: {
+                    create: {
+                        userId: userId,
+                    }
+                }
             }
         })
         
