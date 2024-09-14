@@ -4,6 +4,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Headers } from "@/features/headers/Headers";
+import { SidebarLeft } from "@/features/sidebarLeft/SidebarLeft";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,11 @@ export default function RootLayout({
         >
           <SessionProvider>
             <Headers />
-            {children}
+            
+            <div className="flex">
+              <SidebarLeft />
+              {children}
+            </div>
           </SessionProvider>
         </ThemeProvider>
       </body>

@@ -7,7 +7,7 @@ import { SignInButton } from "../auth/SignInButton"
 
 export const Headers = async () => {
   const session = await getSession()
-  console.log(session)
+
   return <header className="w-full px-2 border-b border-gray-200 dark:border-zinc-800 h-20">
     <nav className="flex max-w-[1600px] mx-auto items-center justify-between h-20">
       <Link href="/">
