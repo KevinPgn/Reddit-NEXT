@@ -16,7 +16,7 @@ export const Headers = async () => {
 
       <div className="flex items-center gap-4">
         <ModeToggle />
-        {!session ? <SignInButton /> : <Authentication />}
+        {!session ? <SignInButton /> : <Authentication session={session}/>}
       </div>
     </nav>
   </header>
