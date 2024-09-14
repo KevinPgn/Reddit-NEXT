@@ -113,6 +113,10 @@ export const getPosts = async () => {
                     votes: true
                 }
             }
+        },
+        take: 10,
+        orderBy: {
+            createdAt: "desc"
         }
     })
     return posts
