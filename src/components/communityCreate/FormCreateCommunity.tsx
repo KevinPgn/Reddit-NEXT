@@ -10,7 +10,7 @@ interface FormData {
 }
 
 export const FormCreateCommunity = () => {
-  const { control, handleSubmit } = useForm<FormData>({
+  const { control, handleSubmit, formState: { isSubmitting } } = useForm<FormData>({
     defaultValues: {
       name: "r/"
     }
@@ -18,8 +18,7 @@ export const FormCreateCommunity = () => {
   const router = useRouter()
 
   const onSubmit = async (data: FormData) => {
-    const test = await createCommunity(data)
-    console.log(test)
+    await createCommunity(data)
   }
 
   return (
@@ -67,8 +66,11 @@ export const FormCreateCommunity = () => {
           router.push("/")
         }}
         type="button" variant="outline">Cancel</Button>
-        <Button type="submit" className="bg-orange-500 hover:bg-orange-600 dark:text-white">Create Community</Button>
+        <Button 
+        disabled={isSubmitting}
+        type="submit" className="bg-orange-500 hover:bg-orange-600 dark:text-white">Create Community</Button>
       </div>
+      {isSubmitting && <p className="text-sm text-gray-500 dark:text-zinc-500 mt-2">Creating community...</p>}
     </form>
   )
 }
