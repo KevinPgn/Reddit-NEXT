@@ -8,19 +8,19 @@ export const Links = () => {
   const pathname = usePathname()
 
   return <div className="flex flex-col gap-2">
-    <Link href="/" className={cn("flex items-center hover:bg-gray-100 dark:hover:bg-zinc-800 rounded-md px-4 py-2 gap-2", pathname === "/" && "bg-gray-100 dark:bg-zinc-800 text-blue-500 dark:text-green-500 font-bold")}>
+    <Link href="/" className={cn("flex items-center hover:bg-gray-100 rounded-md dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/" && "bg-gray-100 dark:bg-zinc-800 text-blue-500 dark:text-green-300 font-bold")}>
       <Home className="w-5 h-5" />
       Home
     </Link>
-    <Link href="/" className={cn("flex items-center hover:bg-gray-100 dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/popular" && "bg-gray-100 dark:bg-zinc-800")}>
+    <Link href="/" className={cn("flex items-center hover:bg-gray-100 rounded-md dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/popular" && "bg-gray-100 dark:bg-zinc-800")}>
       <TrendingUp className="w-5 h-5" />
       Popular
     </Link>
-    <Link href="/" className={cn("flex items-center hover:bg-gray-100 dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/all" && "bg-gray-100 dark:bg-zinc-800")}>
+    <Link href="/" className={cn("flex items-center hover:bg-gray-100 rounded-md dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/all" && "bg-gray-100 dark:bg-zinc-800")}>
       <Zap className="w-5 h-5" />
       All
     </Link>
-    <Link href="/" className={cn("flex items-center hover:bg-gray-100 dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/explore" && "bg-gray-100 dark:bg-zinc-800")}>
+    <Link href="/" className={cn("flex items-center hover:bg-gray-100 rounded-md dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/explore" && "bg-gray-100 dark:bg-zinc-800")}>
       <Compass className="w-5 h-5" />
       Explore
     </Link>
