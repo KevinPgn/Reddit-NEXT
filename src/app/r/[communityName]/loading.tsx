@@ -1,3 +1,5 @@
+import { LoadingComponents } from "@/features/loading/LoadingComponents";
+
 export default function Loading() {
-    return <div>Loading community page...</div>
-  }
+    return <LoadingComponents />
+}
