@@ -2,6 +2,7 @@
 import prisma from "@/lib/prisma"
 import {z} from "zod"
 import { authenticatedAction } from "@/lib/safe-actions"
+import { revalidatePath } from "next/cache"
 /*
 // Reddit clone
 
@@ -91,10 +92,12 @@ export const getCommunityInformations = async (communityName: string) => {
             name: communityName
         },
         select: {
+            id: true,
             name: true,
             description: true,
             imageUrl: true,
             createdAt: true,
+            creatorId: true,
             creator: {
                 select: {
                     name: true,
@@ -106,3 +109,43 @@ export const getCommunityInformations = async (communityName: string) => {
     
     return community
 }
+
+export const updateCommunityDescription = authenticatedAction
+    .schema(z.object({
+        communityName: z.string(),
+        description: z.string().optional()
+    }))
+    .action(async ({parsedInput, ctx:{userId}}) => {
+        const {communityName, description} = parsedInput
+        
+        const community = await prisma.community.findUnique({
+            where: {
+                name: communityName,
+                creatorId: userId
+            }
+        })
+
+        if(!community) {
+            return {
+                success: false,
+                message: "You are not the creator of this community"
+            }
+        }
+
+        const updatedCommunity = await prisma.community.update({
+            where: {
+                name: communityName,
+                creatorId: userId
+            },
+            data: {
+                description: description
+            }
+        })
+
+        revalidatePath(`/r/${communityName}`)
+        return {
+            success: true,
+            updatedCommunity,
+            message: "Community description updated"
+        }
+    })

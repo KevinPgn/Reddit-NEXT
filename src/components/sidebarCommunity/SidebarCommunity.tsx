@@ -3,9 +3,11 @@ import Image from "next/image"
 import { DescriptionArea } from "./DescriptionArea"
 import { Cake } from "lucide-react"
 import { BtnCreatePost } from "@/features/button/BtnCreatePost"
+import { getSession } from "../utils/CacheSession"
 
 export const SidebarCommunity = async ({communityName}: {communityName: string}) => {
   const community = await getCommunityInformations(communityName)
+  const session = await getSession()
 
   if(!community) return <div>Community not found</div>
 
@@ -32,7 +34,11 @@ export const SidebarCommunity = async ({communityName}: {communityName: string})
             <span className="text-lg font-semibold">r/{community.name}</span>
         </div>
 
-        <DescriptionArea description={community.description}/>
+        {session?.user?.id === community.creatorId ? (
+          <DescriptionArea description={community.description} communityName={community.name}/> 
+        ) : (
+          <p className="text-sm text-gray-600 dark:text-gray-400">{community.description}</p>
+        )}
 
         <div className="flex items-center gap-2 mt-4">
           <Cake size={18} className="text-gray-600 dark:text-gray-400"/>
