@@ -112,7 +112,7 @@ export const getCommunityInformations = async (communityName: string) => {
 export const updateCommunityDescription = authenticatedAction
     .schema(z.object({
         communityName: z.string(),
-        description: z.string().optional()
+        description: z.string().max(100).optional()
     }))
     .action(async ({parsedInput, ctx:{userId}}) => {
         const {communityName, description} = parsedInput

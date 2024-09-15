@@ -2,14 +2,16 @@ import { getCommunityInformations } from "./communityInformations.action"
 import Image from "next/image"
 import { DescriptionArea } from "./DescriptionArea"
 import { Cake } from "lucide-react"
-import { BtnCreatePost } from "@/features/button/BtnCreatePost"
 import { getSession } from "../utils/CacheSession"
-import {ToastContainer, toast} from "react-toastify"
+import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { BtnCreatePost } from "@/features/button/BtnCreatePost"
 
 export const SidebarCommunity = async ({communityName}: {communityName: string}) => {
-  const community = await getCommunityInformations(communityName)
-  const session = await getSession()
+  const [community, session] = await Promise.all([
+    getCommunityInformations(communityName),
+    getSession()
+  ])
 
   if(!community) return <div>Community not found</div>
 
@@ -37,7 +39,7 @@ export const SidebarCommunity = async ({communityName}: {communityName: string})
         </div>
 
         {session?.user?.id === community.creatorId ? (
-          <DescriptionArea description={community.description} communityName={community.name} toast={toast}/> 
+          <DescriptionArea description={community.description} communityName={community.name} toast={toast} />
         ) : (
           <p className="text-sm text-gray-600 dark:text-gray-400">{community.description}</p>
         )}
