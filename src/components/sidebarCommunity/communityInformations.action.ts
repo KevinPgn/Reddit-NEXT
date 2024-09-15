@@ -92,7 +92,6 @@ export const getCommunityInformations = async (communityName: string) => {
             name: communityName
         },
         select: {
-            id: true,
             name: true,
             description: true,
             imageUrl: true,
