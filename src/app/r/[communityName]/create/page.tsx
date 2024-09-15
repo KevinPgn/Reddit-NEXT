@@ -1,5 +1,5 @@
+import { CreatePostForm } from '@/components/createPost/CreatePostForm'
 import { RulesReddit } from '@/features/rulesReddit/RulesReddit'
-import React from 'react'
 
 interface CreatePostPageProps {
   params: {
@@ -13,9 +13,9 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({ params }) => {
     return (
         <section className='flex mt-3 max-w-6xl mx-auto gap-8'>
             <div className='flex-1'>
-                
+                <CreatePostForm communityName={communityName}/>
             </div>
-            
+
             <RulesReddit />
         </section>
   )
