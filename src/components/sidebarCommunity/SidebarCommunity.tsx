@@ -4,6 +4,8 @@ import { DescriptionArea } from "./DescriptionArea"
 import { Cake } from "lucide-react"
 import { BtnCreatePost } from "@/features/button/BtnCreatePost"
 import { getSession } from "../utils/CacheSession"
+import {ToastContainer, toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 export const SidebarCommunity = async ({communityName}: {communityName: string}) => {
   const community = await getCommunityInformations(communityName)
@@ -35,7 +37,7 @@ export const SidebarCommunity = async ({communityName}: {communityName: string})
         </div>
 
         {session?.user?.id === community.creatorId ? (
-          <DescriptionArea description={community.description} communityName={community.name}/> 
+          <DescriptionArea description={community.description} communityName={community.name} toast={toast}/> 
         ) : (
           <p className="text-sm text-gray-600 dark:text-gray-400">{community.description}</p>
         )}
@@ -55,6 +57,7 @@ export const SidebarCommunity = async ({communityName}: {communityName: string})
         <div className="w-full h-px bg-gray-200 dark:bg-zinc-800 mt-4 mb-3"></div>
         <BtnCreatePost />
       </div>
+        <ToastContainer />
     </div>
   )
 }

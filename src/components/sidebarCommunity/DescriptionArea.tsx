@@ -4,7 +4,7 @@ import { Textarea } from "../ui/textarea"
 import { Button } from "../ui/button"
 import { updateCommunityDescription } from "./communityInformations.action"
 
-export const DescriptionArea = ({ description, communityName }: { description: string | null, communityName: string }) => {
+export const DescriptionArea = ({ description, communityName, toast }: { description: string | null, communityName: string, toast: any }) => {
   const { register, handleSubmit, formState: { isSubmitting } } = useForm({
     defaultValues: {
       description: description ?? "",
@@ -13,7 +13,12 @@ export const DescriptionArea = ({ description, communityName }: { description: s
   })
 
   const onSubmit = handleSubmit(async (data) => {
-     await updateCommunityDescription(data)
+    try{
+      toast.success("Community description updated")
+      await updateCommunityDescription(data)
+    } catch (error) {
+      toast.error("Error updating community description")
+    }
   })
 
   return <>
