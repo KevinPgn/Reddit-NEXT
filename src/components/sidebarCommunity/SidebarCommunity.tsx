@@ -57,7 +57,7 @@ export const SidebarCommunity = async ({communityName}: {communityName: string})
         </div>
 
         <div className="w-full h-px bg-gray-200 dark:bg-zinc-800 mt-4 mb-3"></div>
-        <BtnCreatePost />
+        <BtnCreatePost communityName={community.name}/>
       </div>
         <ToastContainer />
     </div>
