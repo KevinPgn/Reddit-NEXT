@@ -30,7 +30,7 @@ export default function RootLayout({
           <SessionProvider>
             <Headers />
             
-            <div className="flex">
+            <div className="flex flex-1">
               <SidebarLeft />
               {children}
             </div>

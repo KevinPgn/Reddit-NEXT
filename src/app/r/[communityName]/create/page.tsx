@@ -11,11 +11,11 @@ const CreatePostPage: React.FC<CreatePostPageProps> = ({ params }) => {
   const { communityName } = params
   
     return (
-        <section className='flex mt-3 max-w-6xl mx-auto gap-8'>
+        <section className='w-full flex mt-5 max-w-[1100px] mx-auto gap-8'>
             <div className='flex-1'>
                 <CreatePostForm communityName={communityName}/>
             </div>
-
+            
             <RulesReddit />
         </section>
   )
