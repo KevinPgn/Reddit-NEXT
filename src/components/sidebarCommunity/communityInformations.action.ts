@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma"
 import {z} from "zod"
 import { authenticatedAction } from "@/lib/safe-actions"
 import { revalidatePath } from "next/cache"
+import { getSession } from "../utils/CacheSession"
 /*
 // Reddit clone
 
@@ -87,6 +88,8 @@ model Vote {
 */ 
 
 export const getCommunityInformations = async (communityName: string) => {
+    const session = await getSession()
+
     const community = await prisma.community.findUnique({
         where: {
             name: communityName
@@ -102,7 +105,12 @@ export const getCommunityInformations = async (communityName: string) => {
                     name: true,
                     image: true
                 }
-            }
+            },
+            members: session?.user?.id ? {
+                where: {
+                    userId: session.user.id
+                }
+            } : false
         }
     })
     

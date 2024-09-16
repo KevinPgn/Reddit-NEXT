@@ -6,6 +6,7 @@ import { getSession } from "../utils/CacheSession"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { BtnCreatePost } from "@/features/button/BtnCreatePost"
+import { BtnJoinCommunity } from "@/features/button/BtnJoinCommunity"
 
 export const SidebarCommunity = async ({communityName}: {communityName: string}) => {
   const [community, session] = await Promise.all([
@@ -57,7 +58,15 @@ export const SidebarCommunity = async ({communityName}: {communityName: string})
         </div>
 
         <div className="w-full h-px bg-gray-200 dark:bg-zinc-800 mt-4 mb-3"></div>
-        <BtnCreatePost communityName={community.name}/>
+        {community.members ? (
+          <BtnCreatePost communityName={community.name}/>
+        ) : (
+          <div className="flex items-center gap-2 mt-4">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
+              <BtnJoinCommunity communityName={community.name}/>
+            </span>
+          </div>
+        )}
       </div>
         <ToastContainer />
     </div>
