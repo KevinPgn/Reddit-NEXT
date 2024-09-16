@@ -34,6 +34,7 @@ export default function RootLayout({
               {children}
             </div>
           </SessionProvider>
+          <SidebarLeft />
         </ThemeProvider>
       </body>
     </html>

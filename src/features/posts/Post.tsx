@@ -6,6 +6,7 @@ import {getPostVotes} from "./post.action"
 export const Post = async ({post, communityName}: {post: any, communityName: string}) => {  
   const session = await getSession()
   const {total : voteCount, userVote} = await getPostVotes(post.id, session?.user?.id)
+  
   return (
     <div className="w-[600px] max-lg:w-full mb-3 flex border border-gray-200 rounded-md dark:border-[#262424] mt-3 overflow-hidden">
       <div className="w-[60px] bg-gray-100 dark:bg-[#191818]">

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 export const Links = () => {
   const pathname = usePathname()
 
-  return <div className="flex flex-col gap-2">
+  return <div className="flex flex-col gap-2 mt-5">
     <Link href="/" className={cn("flex items-center hover:bg-gray-100 rounded-md dark:hover:bg-zinc-800 px-4 py-2 gap-2", pathname === "/" && "bg-gray-100 dark:bg-zinc-800 text-blue-500 dark:text-green-300 font-bold")}>
       <Home className="w-5 h-5" />
       Home

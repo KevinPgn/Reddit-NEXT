@@ -32,7 +32,7 @@ export const VotesPost = ({ postId, initialVotes, initialUserVote }: VotesPostPr
     <div className="flex flex-col items-center justify-center py-3">
       <Button 
         variant="outline" 
-        className={`w-10 h-10 p-0 ${initialUserVote === "UP" ? "bg-blue-500" : ""}`}
+        className={`w-10 h-10 hover:bg-blue-500 hover:text-white p-0 ${initialUserVote === "UP" ? "bg-blue-500 text-white" : ""}`}
         onClick={() => handleVote("UP")}
         disabled={isPending}
       >
@@ -41,7 +41,7 @@ export const VotesPost = ({ postId, initialVotes, initialUserVote }: VotesPostPr
       <span className="text-sm font-bold my-1">{initialVotes}</span>
       <Button 
         variant="outline" 
-        className={`w-10 h-10 p-0 ${initialUserVote === "DOWN" ? "bg-red-500" : ""}`}
+        className={`w-10 h-10 hover:bg-red-500 hover:text-white p-0 ${initialUserVote === "DOWN" ? "bg-red-500 text-white" : ""}`}
         onClick={() => handleVote("DOWN")}
         disabled={isPending}
       >
