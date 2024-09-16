@@ -1,8 +1,8 @@
 "use client"
 import { ArrowDown, ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTransition } from "react"
-import { voteOnPost, getPostVotes } from "./post.action"
+import { useCallback, useTransition } from "react"
+import { voteOnPost } from "./post.action"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
@@ -17,16 +17,16 @@ export const VotesPost = ({ postId, initialVotes, initialUserVote }: VotesPostPr
   const { data: session } = useSession()
   const router = useRouter()
   
-  const handleVote = (voteType: "UP" | "DOWN") => {
+  const handleVote = useCallback((voteType: "UP" | "DOWN") => {
     if (!session) {
-      router.push("/login")
+      router.push("/api/auth/signin")
       return
     }
     
     startTransition(async () => {
       await voteOnPost({ postId, voteType })
     })
-  }
+  }, [postId, session, router, startTransition])
 
   return (
     <div className="flex flex-col items-center justify-center py-3">

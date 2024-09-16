@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma"
 import {z} from "zod"
 import { authenticatedAction } from "@/lib/safe-actions"
 import { revalidatePath } from "next/cache"
+import { cache } from "react"
 /*
 // Reddit clone
 
@@ -181,7 +182,7 @@ export const voteOnPost = authenticatedAction
     revalidatePath("/");
   });
 
-export const getPostVotes = async (postId: string, userId?: string) => {
+export const getPostVotes = cache(async (postId: string, userId?: string) => {
   const votesCount = await prisma.vote.groupBy({
     by: ["type"],
     where: { postId },
@@ -207,4 +208,4 @@ export const getPostVotes = async (postId: string, userId?: string) => {
     total: upVotes - downVotes,
     userVote: userVote?.type,
   };
-};
+});
