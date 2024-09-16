@@ -14,6 +14,15 @@ export const MenuBar = ({editor}: {editor: any}) => {
         <Button 
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className="bg-orange-500 hover:bg-orange-600 dark:bg-green-500 text-white" type="button">H3</Button>
+        <Button 
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        className="bg-orange-500 hover:bg-orange-600 dark:bg-green-500 text-white" type="button">Bold</Button>
+        <Button 
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        className="bg-orange-500 hover:bg-orange-600 dark:bg-green-500 text-white" type="button">Italic</Button>
+        <Button 
+        onClick={() => editor.chain().focus().toggleStrike().run()}
+        className="bg-orange-500 hover:bg-orange-600 dark:bg-green-500 text-white" type="button">Strike</Button>
     </div> 
   </>
 }
