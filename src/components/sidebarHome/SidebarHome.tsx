@@ -1,6 +1,5 @@
 import Image from "next/image"
 import { BtnCreateCommunity } from "@/features/button/BtnCreateCommunity"
-import { BtnCreatePost } from "@/features/button/BtnCreatePost"
 import { Button } from "@/components/ui/button"
 
 export const SidebarHome = () => {
