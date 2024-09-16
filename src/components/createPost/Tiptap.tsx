@@ -15,14 +15,14 @@ const Tiptap = ({content, setContent}: {content: string, setContent: (content: s
     }), Bold, Italic, Strike],
     editorProps: {
       attributes: {
-        class: 'prose prose-sm sm:prose lg:prose-md xl:prose-lg mx-auto focus:outline-none'
+        class: 'prose prose-sm dark:prose-invert sm:prose lg:prose-md xl:prose-lg mx-auto focus:outline-none'
       }
     },
     content: "Hello World",
+    onUpdate: ({editor}) => {
+      setContent(editor.getHTML())
+    }
   })
-
-
-
 
   return <>
     <MenuBar editor={editor}/>
