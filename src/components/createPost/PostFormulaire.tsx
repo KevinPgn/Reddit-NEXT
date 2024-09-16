@@ -1,5 +1,6 @@
 "use client"
 import { Input } from "@/components/ui/input"
+import Tiptap from './Tiptap'
 
 interface PostFormulaireProps {
   title: string
@@ -18,6 +19,7 @@ export const PostFormulaire = ({title, content, setTitle, setContent}: PostFormu
         placeholder="e.g. My first post"
         onChange={(e) => setTitle(e.target.value)}
       />
+      <Tiptap content={content} setContent={setContent} />
     </div>
   </div>
 }
