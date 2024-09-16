@@ -15,7 +15,7 @@ export const Post = ({post, communityName}: {post: any, communityName: string}) 
           <p className="text-sm text-gray-500 dark:text-gray-400">Posted by u/{post.author.name}</p>
         </div>
 
-        <h1 className="text-lg font-bold mt-4">{post.title}</h1>
+        <h1 className="text-lg hover:underline font-bold mt-4"><Link href={`/r/${communityName}/post/${post.id}`}>{post.title}</Link></h1>
         <div
         dangerouslySetInnerHTML={{ __html: post.content }}
         className="mt-4"
