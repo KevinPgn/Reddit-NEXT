@@ -10,7 +10,12 @@ const Tiptap = ({content, setContent}: {content: string, setContent: (content: s
     extensions: [StarterKit, Heading.configure({
       levels: [1, 2, 3]
     })],
-    content: content,
+    editorProps: {
+      attributes: {
+        class: 'prose'
+      }
+    },
+    content: "Hello World",
   })
 
 
