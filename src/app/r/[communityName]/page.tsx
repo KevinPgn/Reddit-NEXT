@@ -2,6 +2,7 @@ import { PostForm } from '@/components/postForm/PostForm'
 import { SidebarCommunity } from '@/components/sidebarCommunity/SidebarCommunity'
 import React from 'react'
 import { getCommunityInfo } from './communityInfo.action'
+import { Post } from '@/features/posts/Post'
 
 interface CommunityNamePageProps {
     params: {
@@ -16,7 +17,10 @@ const CommunityNamePage = async ({ params }: CommunityNamePageProps) => {
     return (
     <section className='flex mt-3 max-w-6xl mx-auto gap-8'>
         <div className='flex-1'>
-            <PostForm community={community}/>
+            <PostForm />
+            {community?.posts.map((post) => (
+                <Post key={post.id} post={post} />
+            ))}
         </div>
 
         <SidebarCommunity communityName={communityName}/>
