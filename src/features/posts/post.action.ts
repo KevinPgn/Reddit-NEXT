@@ -2,6 +2,7 @@
 import prisma from "@/lib/prisma"
 import {z} from "zod"
 import { authenticatedAction } from "@/lib/safe-actions"
+import { revalidatePath } from "next/cache"
 /*
 // Reddit clone
 
@@ -121,3 +122,89 @@ export const getPosts = async () => {
     })
     return posts
 }
+
+export const voteOnPost = authenticatedAction
+  .schema(z.object({
+    postId: z.string(),
+    voteType: z.enum(["UP", "DOWN"]),
+  }))
+  .action(async ({parsedInput, ctx}) => {
+    const { postId, voteType } = parsedInput
+    const { userId } = ctx
+
+    const post = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    const existingVote = await prisma.vote.findUnique({
+      where: {
+        authorId_postId: {
+          authorId: userId,
+          postId,
+        },
+      },
+    });
+
+    if (existingVote) {
+      if (existingVote.type === voteType) {
+        await prisma.vote.delete({
+          where: {
+            id: existingVote.id,
+          },
+        });
+      } else {
+        await prisma.vote.update({
+          where: {
+            id: existingVote.id,
+          },
+          data: {
+            type: voteType,
+          },
+        });
+      }
+    } else {
+      await prisma.vote.create({
+        data: {
+          type: voteType,
+          postId,
+          authorId: userId,
+        },
+      });
+    }
+
+    revalidatePath("/");
+  });
+
+export const getPostVotes = async (postId: string, userId?: string) => {
+  const votesCount = await prisma.vote.groupBy({
+    by: ["type"],
+    where: { postId },
+    _count: true,
+  });
+
+  const userVote = userId
+    ? await prisma.vote.findUnique({
+        where: {
+          authorId_postId: {
+            authorId: userId,
+            postId: postId,
+          },
+        },
+        select: { type: true },
+      })
+    : null;
+
+  const upVotes = votesCount.find((v) => v.type === "UP")?._count ?? 0;
+  const downVotes = votesCount.find((v) => v.type === "DOWN")?._count ?? 0;
+
+  return {
+    total: upVotes - downVotes,
+    userVote: userVote?.type,
+  };
+};

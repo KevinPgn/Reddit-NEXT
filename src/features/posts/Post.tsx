@@ -1,12 +1,15 @@
 import { VotesPost } from "./VotesPost"
 import { MessageSquare, Share } from "lucide-react"
 import Link from "next/link"
-
-export const Post = ({post, communityName}: {post: any, communityName: string}) => {  
+import {getPostVotes} from "./post.action"
+ import { getSession } from "@/components/utils/CacheSession" 
+export const Post = async ({post, communityName}: {post: any, communityName: string}) => {  
+  const session = await getSession()
+  const {total : voteCount, userVote} = await getPostVotes(post.id, session?.user?.id)
   return (
     <div className="w-[600px] max-lg:w-full mb-3 flex border border-gray-200 rounded-md dark:border-[#262424] mt-3 overflow-hidden">
       <div className="w-[60px] bg-gray-100 dark:bg-[#191818]">
-        <VotesPost postcount={post._count.votes}/>
+        <VotesPost postId={post.id} initialVotes={voteCount} initialUserVote={userVote}/>
       </div>
 
       <div className="flex-1 p-3">
