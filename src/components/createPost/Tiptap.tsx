@@ -18,8 +18,10 @@ const Tiptap = ({content, setContent}: {content: string, setContent: (content: s
         class: 'prose prose-sm sm:prose lg:prose-md xl:prose-lg mx-auto focus:outline-none'
       }
     },
-    content: "e.g. Hello World",
+    content: "Hello World",
   })
+
+
 
 
   return <>
