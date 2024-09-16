@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { BtnCreateCommunity } from "@/features/button/BtnCreateCommunity"
 import { BtnCreatePost } from "@/features/button/BtnCreatePost"
+import { Button } from "@/components/ui/button"
 
 export const SidebarHome = () => {
   return <div className="w-[350px] h-fit border border-gray-200 dark:border-zinc-800 rounded-md">
@@ -13,8 +14,9 @@ export const SidebarHome = () => {
         </div>
         <p className="text-sm text-gray-500 dark:text-zinc-500 relative bottom-2">Your personal Reddit frontpage. Come here to check in with your favorite communities!</p>
         <div className="w-full h-[1px] bg-gray-200 dark:bg-zinc-800 mt-4 mb-4"></div>
-
-        <BtnCreatePost />
+        <Button variant="outline" className="w-full">
+          Create Post
+        </Button> 
         <BtnCreateCommunity />
     </div>
   </div>
