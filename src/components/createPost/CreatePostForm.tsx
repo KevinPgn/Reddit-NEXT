@@ -18,7 +18,7 @@ export const CreatePostForm = ({communityName}: {communityName: string}) => {
             <TabsTrigger className="w-[50%] h-full" value="post"><ListPlus className="w-4 h-4 mr-2" /> Post</TabsTrigger>
             <TabsTrigger className="w-[50%] h-full" value="image"><Video className="w-4 h-4 mr-2" /> Image & Video</TabsTrigger>
         </TabsList>
-        <TabsContent value="post" className="flex flex-col gap-2 w-full border border-gray-200 dark:border-gray-700 p-3 px-7 rounded-md">
+        <TabsContent value="post">
             <PostFormulaire 
             title={title}
             content={content}
