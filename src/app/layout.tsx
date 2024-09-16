@@ -31,7 +31,6 @@ export default function RootLayout({
             <Headers />
             
             <div className="flex flex-1">
-              <SidebarLeft />
               {children}
             </div>
           </SessionProvider>

@@ -8,8 +8,8 @@ export default async function Home() {
   const posts = await getPosts()
 
   return (
-  <div className="flex max-w-[1600px] mt-5 mx-auto gap-10">
-    <div className="flex-1">
+  <div className="flex max-w-[1600px] max-lg:w-full max-lg:flex-col-reverse mt-5 mx-auto gap-10">
+    <div>
       <PostForm />
       {posts.length === 0 ? (
         <NoPosts />

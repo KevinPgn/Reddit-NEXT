@@ -9,7 +9,7 @@ interface ImageOrVideoFormulaireProps {
 
 export function ImageOrVideoFormulaire({ imageUrl, setImageUrl }: ImageOrVideoFormulaireProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 border-dashed dark:border-2 dark:border-gray-700 mt-5 p-4 rounded-lg">
       {!imageUrl && (
         <UploadDropzone<OurFileRouter, "imageUploader">
           endpoint="imageUploader"
