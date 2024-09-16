@@ -2,6 +2,8 @@
 import prisma from "@/lib/prisma"
 import {z} from "zod"
 import { authenticatedAction } from "@/lib/safe-actions"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 /*
 // Reddit clone
 
@@ -119,7 +121,7 @@ export const createPost = authenticatedAction
             throw new Error("You are not a member of this community")
         }
 
-        const post = await prisma.post.create({
+        await prisma.post.create({
             data: {
                 title,
                 content,
@@ -129,8 +131,6 @@ export const createPost = authenticatedAction
             }
         })
 
-        return {
-            success: true,
-            postId: post.id
-        }
+        revalidatePath(`/r/${communityName}`)
+        redirect(`/r/${communityName}`)
     })
