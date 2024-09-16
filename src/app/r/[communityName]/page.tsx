@@ -19,7 +19,7 @@ const CommunityNamePage = async ({ params }: CommunityNamePageProps) => {
         <div className='flex-1'>
             <PostForm />
             {community?.posts.map((post) => (
-                <Post key={post.id} post={post} />
+                <Post key={post.id} post={post} communityName={communityName}/>
             ))}
         </div>
 

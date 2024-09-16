@@ -15,7 +15,7 @@ export default async function Home() {
         <NoPosts />
       ) : (
         posts.map((post) => (
-          <Post key={post.id} post={post} />
+          <Post key={post.id} post={post} communityName={post.community.name} />
         ))
       )}
     </div>

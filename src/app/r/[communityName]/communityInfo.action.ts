@@ -1,7 +1,5 @@
 "use server"
 import prisma from "@/lib/prisma"
-import {z} from "zod"
-import { authenticatedAction } from "@/lib/safe-actions"
 /*
 // Reddit clone
 
@@ -112,9 +110,13 @@ export const getCommunityInfo = async (communityName: string) => {
                             votes: true
                         }
                     }
-                }
+                },
+                take: 10,
+            orderBy: {
+                createdAt: "desc"
             }
-        }
+        },
+        },
     })
     
     return community
