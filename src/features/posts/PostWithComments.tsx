@@ -5,7 +5,7 @@ import {getPostVotes} from "./post.action"
  import { getSession } from "@/components/utils/CacheSession" 
 import { Share } from "./Share"
 
-export const Post = async ({post, communityName}: {post: any, communityName: string}) => {  
+export const PostWithComments = async ({post, communityName}: {post: any, communityName: string}) => {  
   const session = await getSession()
   const {total : voteCount, userVote} = await getPostVotes(post.id, session?.user?.id)
   
