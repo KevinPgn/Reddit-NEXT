@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "react-day-picker"
+import { Button } from "@/components/ui/button"
 
 export const BtnJoinCommunity = ({communityName}: {communityName: string}) => {
   return <>

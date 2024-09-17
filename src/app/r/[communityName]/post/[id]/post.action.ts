@@ -2,6 +2,8 @@
 import prisma from "@/lib/prisma"
 import {z} from "zod"
 import { authenticatedAction } from "@/lib/safe-actions"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 /*
 // Reddit clone
 
@@ -116,8 +118,71 @@ export const getPost = async (id: string) => {
                     votes: true
                 }
             },
+            comments: {
+                select: {
+                    id: true,
+                    content: true,
+                    author: {
+                        select: {
+                            id: true,
+                            name: true,
+                            image: true
+                        }
+                    }
+                },
+                take: 10,
+                orderBy: {
+                    createdAt: "desc"
+                }
+            }
         },
     }
 )
     return post
 }
+
+export const createComment = authenticatedAction
+    .schema(z.object({
+        content: z.string().min(1).max(1000),
+        postId: z.string()
+    }))
+    .action(async ({parsedInput, ctx}) => {
+        const {content, postId} = parsedInput
+        const {userId} = ctx
+
+        const post = await prisma.post.findUnique({
+            where: {
+                id: postId
+            },
+            select: {
+                community: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+
+        if (!post) {
+            return {
+                success: false
+            }
+        }
+
+        if(!userId){
+            redirect("/api/auth/signin")
+        }
+
+        await prisma.comment.create({
+            data: {
+                content,
+                postId,
+                authorId: userId
+            }
+        })
+
+        revalidatePath(`/r/${post.community.name}/post/${postId}`)
+        return {
+            success: true
+        }
+    })  
